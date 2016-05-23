@@ -1,5 +1,5 @@
 # My Awesome Project
-## Version 1.0.0
+## Version 1.0.1
 
 This is my awesome project.
 
@@ -123,3 +123,21 @@ git rebase origin/release/1.0.1-rc1
 # A force push will be required as rebasing is effectively rewriting git history
 git push -f
 ```
+
+### Preparing the final release
+
+The final release is submitted as a Pull Request from the release branch targetting the `master` branch.
+
+The only changes that maybe be implemented directly against the release branch, at the release manager's discretion, are bug fixes and version number changes as appropriate.
+
+Any final changes should be pushed to the release candidate prior to the Pull Request being merged into `master`.
+
+Upon merging of the release candidate branch into `master`, the merged feature branch Pull Requests will be automatically closed.
+
+### Tagging a release
+
+Once the release candidate is merged into `master`, a new release should be tagged matching the targeted release version.
+
+![Version tagging screenshot](version-tagging.png)
+
+Tag the release, which will be deployed via the relevant Jenkins deployment project.
