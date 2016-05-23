@@ -134,7 +134,7 @@ Any final changes should be pushed to the release candidate prior to the Pull Re
 
 Upon merging of the release candidate branch into `master`, the merged feature branch Pull Requests will be automatically closed.
 
-> **Note**: You must perform a merge, not a squash squash and merge, otherwise Pull Requests will not be closed automatically.
+> **Note**: You must perform a merge, not a squash and merge, otherwise Pull Requests will not be closed automatically.
 
 ### Tagging a release
 
