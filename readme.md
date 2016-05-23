@@ -114,11 +114,12 @@ Push the release candidate to GitHub so that developers will be able to rebase t
 
 Add a note to the Pull Request in GitHub stating that you cannot merge the branch due to conflicts with other changes being implemented in the current release, then assign the Pull Request to the requesting developer.
 
-The developer will need to rebase their branch against the release candidate and push their changes.
+> The developer will need to rebase their branch against the release candidate and push their changes, as their understanding of the changes will be better than that of the release manager. It is for this reason that it is the developer's responsibility to resolve conflicts in their branch before pushing their branch.
 
 ```
 git checkout feature/about-release-candidacy
 git fetch --all
 git rebase origin/release/1.0.1-rc1
-git push -u origin feature/about-release-candidacy
+# A force push will be required as rebasing is effectively rewriting git history
+git push -f
 ```
