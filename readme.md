@@ -134,6 +134,8 @@ Any final changes should be pushed to the release candidate prior to the Pull Re
 
 Upon merging of the release candidate branch into `master`, the merged feature branch Pull Requests will be automatically closed.
 
+> **Note**: You must perform a merge, not a squash squash and merge, otherwise Pull Requests will not be closed automatically.
+
 ### Tagging a release
 
 Once the release candidate is merged into `master`, a new release should be tagged matching the targeted release version.
