@@ -58,15 +58,15 @@ git checkout -b release/1.0.1-rc1
 git fetch --all
 ```
 
-Feature branches are merged into this release candidate in the checked out working directory - not via GitHub.
+Feature branches are merged into this release candidate in the checked out working directory - not via GitHub - and using the `--no-ff` option.
 
-`git merge origin/feature/my-new-feature`
+`git merge --no-ff origin/feature/my-new-feature`
 
 This allows additional features to continue development for the same release candidate simultaneously.
 
 ```
 git fetch --all
-git merge origin/feature/about-release-candidacy
+git merge --no-ff origin/feature/about-release-candidacy
 ```
 
 Whilst preparing a release candidate, the release manager will need to address any [merge conflicts](#resolve-merge-conflicts), which may occur when the same files are being modified by multiple Pull Requests. These merge conflicts should be trivial to resolve in most cases, and in some instances may be resolved by git automatically.
@@ -93,7 +93,7 @@ If the release is to go ahead in the absence of the failed features, the release
 
 ```
 git checkout -b release/1.0.1-rc2 master
-git merge origin/feature/my-new-feature
+git merge --no-ff origin/feature/my-new-feature
 git push -u origin release/1.0.1-rc2
 ```
 
