@@ -69,7 +69,7 @@ git fetch --all
 git merge origin/feature/about-release-candidacy
 ```
 
-It is at this point that the release manager will need to address any merge conflicts, which should occur only when the same files are being modified by multiple Pull Requests as in this readme file. These merge conflicts should be trivial to resolve in most cases, and in some instances git may automatically resolve them for you.
+Whilst preparing a release candidate, the release manager will need to address any [merge conflicts](#resolve-merge-conflicts), which may occur when the same files are being modified by multiple Pull Requests. These merge conflicts should be trivial to resolve in most cases, and in some instances may be resolved by git automatically.
 
 Once the release candidate is ready for user acceptance testing, the release branch should be pushed to GitHub.
 
@@ -95,4 +95,30 @@ If the release is to go ahead in the absence of the failed features, the release
 git checkout -b release/1.0.1-rc2 master
 git merge origin/feature/my-new-feature
 git push -u origin release/1.0.1-rc2
+```
+
+<a name="resolve-merge-conflicts"></a>
+### Resolve merge conflicts
+
+From time to time when preparing a release candidate, you may encounter merge conflicts. This generally occurs only when you have multiple Pull Requests making modifications to the same file(s). It is at this point that the `Needs Rebase` should be applied.
+
+An in-progress merge with conflicts can easily be dealth with:
+
+`git merge --abort`
+
+This will return the release candidate branch to it's unsullied state, ready for the release manager to continue merging other Pull Requests.
+
+Push the release candidate to GitHub so that developers will be able to rebase their feature branches against it.
+
+`git push -u origin release/1.0.0-rc1`
+
+Add a note to the Pull Request in GitHub stating that you cannot merge the branch due to conflicts with other changes being implemented in the current release, then assign the Pull Request to the requesting developer.
+
+The developer will need to rebase their branch against the release candidate and push their changes.
+
+```
+git checkout feature/about-release-candidacy
+git fetch --all
+git rebase origin/release/1.0.1-rc1
+git push -u origin feature/about-release-candidacy
 ```
