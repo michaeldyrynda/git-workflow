@@ -1,5 +1,5 @@
 # Git Development Workflow
-## Version 1.0.3
+## Version 1.0.4
 
 * [Overview](#overview)
 * [Feature development](#feature-development)
