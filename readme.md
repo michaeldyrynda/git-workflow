@@ -1,6 +1,7 @@
-# My Awesome Project
-## Version 1.0.3
+# Git Development Workflow
+## Version 1.0.4
 
+* [Overview](#overview)
 * [Feature development](#feature-development)
  * [Meaningful commit messages](#meaningful-commit-messages)
 * [Release candidacy](#release-candidacy)
@@ -9,11 +10,26 @@
 * [Preparing the final release](#preparing-the-final-release)
 * [Tagging a release](#tagging-a-release)
 
-This is my awesome project.
+<a name="#overview"></a>
+### Overview
 
-It is being used to test out our proposed new development workflow.
+Due to the nature of our development workflow, it is necessary to be able to perform both internal QA of upcoming features, as well as client-facing User Acceptance Testing.
 
-We have one mainline branch, `master`.
+GitHub does not provide us with this precise workflow via the site itself, but does provide the tools to do so. It requires a combination of Pull Requests via the website, as well as a bit of command line git interaction to manage release candidate branches.
+
+We use one mainline branch `master`, which is locked and can only be pushed to via Pull Request via a release candidate branch.
+
+All feature development is branched from `master`. When development is complete, the developer submits a Pull Request back to the `master` branch, where the review process begins.
+
+A release manager is responsible for merging pending feature branches into a release candidate, that will in turn be pushed to a staging environment for UAT.
+
+The release candidate approach allows for failed features to be removed from a new candidate without affecting other features.
+
+The release manager will submit a Pull Request against the `master` branch and, once complete, merge and tag this new release, which is subsequently deployed to the production environment. The tagged release will be accompanied by a change log.
+
+This workflow dictates that a rollback never occurs, but rather that a new release be deployed with any broken behaviour being removed by the same feature branch process that it was developed under.
+
+This workflow is derived from [git-flow](http://nvie.com/posts/a-successful-git-branching-model/).
 
 <a name="feature-development"></a>
 ### Feature development
