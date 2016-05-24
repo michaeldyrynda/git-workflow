@@ -1,5 +1,13 @@
 # My Awesome Project
-## Version 1.0.2
+## Version 1.0.3
+
+* [Feature development](#feature-development)
+ * [Meaningful commit messages](#meaningful-commit-messages)
+* [Release candidacy](#release-candidacy)
+* [Resolving merge conflicts](#resolving-merge-conflicts)
+ * [Rebasing feature branches](#rebasing-feature-branches)
+* [Preparing the final release](#preparing-the-final-release)
+* [Tagging a release](#tagging-a-release)
 
 This is my awesome project.
 
@@ -7,6 +15,7 @@ It is being used to test out our proposed new development workflow.
 
 We have one mainline branch, `master`.
 
+<a name="feature-development"></a>
 ### Feature development
 
 New feature development should be branched from `master`.
@@ -21,6 +30,7 @@ git commit -m 'add changes for my new feature'
 git push -u origin feature/my-new-feature
 ```
 
+<a name="meaningful-commit-messages"></a>
 #### Meaningful commit messages
 
 It is important when making commits to leave meaningful commit messages. Meaningful commit messages makes it easy for somebody not familiar with the code changes to have a good understanding of changes that are being made through the development process. It also makes the release manager's job simpler when it comes time for them to write release notes, as they are provided with a concise overview of everything that was changed, added, or removed, just by looking at the git log between the previous and current releases.
@@ -46,6 +56,7 @@ This Pull Requests's code will be reviewed by one of the organisation team membe
 * If the Pull Request passes QA, the `QA Passed` label will be applied to it.
 * If the Pull Request fails QA, the `QA Failed` label will be applied to it.
 
+<a name="release-candidacy"></a>
 ### Release candidacy
 
 When a sufficent number of features are in the `QA Passed` stage, the designated release manager will be prepare a new release candidate. The release manager should clone a *fresh* copy of the remote repository when preparing *each* new release, rather than using an existing working copy.
@@ -147,6 +158,7 @@ git add <file_in_conflict>
 git rebase --continue
 ```
 
+<a name="rebasing-feature-branches"></a>
 #### Rebasing feature branches
 
 There are two ways to resolve merge conflicts between a feature branch and pending release branches; merging and rebasing.
@@ -175,6 +187,7 @@ The common workflow when rebasing a feature branch is as follows:
 
 You can read more about `git rebase` [here](https://dotdev.co/git-rebase-for-reasonable-developers-26dc8776dc25).
 
+<a name="preparing-the-final-release"></a>
 ### Preparing the final release
 
 The final release is submitted as a Pull Request from the release branch targetting the `master` branch.
@@ -187,6 +200,7 @@ Upon merging of the release candidate branch into `master`, the merged feature b
 
 > **Note**: You must perform a merge, not a squash and merge, otherwise Pull Requests will not be closed automatically.
 
+<a name="tagging-a-release"></a>
 ### Tagging a release
 
 Once the release candidate is merged into `master`, a new release should be tagged matching the targeted release version.
