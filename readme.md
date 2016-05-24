@@ -1,5 +1,13 @@
 # My Awesome Project
-## Version 1.0.2
+## Version 1.0.3
+
+* [Feature development](#feature-development)
+ * [Meaningful commit messages](#meaningful-commit-messages)
+* [Release candidacy](#release-candidacy)
+* [Resolving merge conflicts](#resolving-merge-conflicts)
+ * [Rebasing feature branches](#rebasing-feature-branches)
+* [Preparing the final release](#preparing-the-final-release)
+* [Tagging a release](#tagging-a-release)
 
 This is my awesome project.
 
@@ -7,6 +15,7 @@ It is being used to test out our proposed new development workflow.
 
 We have one mainline branch, `master`.
 
+<a name="feature-development"></a>
 ### Feature development
 
 New feature development should be branched from `master`.
@@ -21,6 +30,23 @@ git commit -m 'add changes for my new feature'
 git push -u origin feature/my-new-feature
 ```
 
+<a name="meaningful-commit-messages"></a>
+#### Meaningful commit messages
+
+It is important when making commits to leave meaningful commit messages. Meaningful commit messages makes it easy for somebody not familiar with the code changes to have a good understanding of changes that are being made through the development process. It also makes the release manager's job simpler when it comes time for them to write release notes, as they are provided with a concise overview of everything that was changed, added, or removed, just by looking at the git log between the previous and current releases.
+
+There are seven rules that ought to be followed when writing your commit messages:
+
+> 1. Separate subject from the body with a blank line
+> 2. Limit the subject line to 50 characters
+> 3. Capitalise the subject line
+> 4. Do not end the subject line with a period
+> 5. Use the imperative mood in the subject line
+> 6. Wrap the body at 72 characters
+> 7. Use the body to explain *what* and *why* vs *how*
+
+More information, and a breakdown of the seven rules, on writing meaningful commit messages can be found [here](http://chris.beams.io/posts/git-commit/).
+
 View the project page within GitHub and create a new Pull Request, which targets the `master` branch.
 
 This Pull Requests's code will be reviewed by one of the organisation team members responsible for QA.
@@ -30,6 +56,7 @@ This Pull Requests's code will be reviewed by one of the organisation team membe
 * If the Pull Request passes QA, the `QA Passed` label will be applied to it.
 * If the Pull Request fails QA, the `QA Failed` label will be applied to it.
 
+<a name="release-candidacy"></a>
 ### Release candidacy
 
 When a sufficent number of features are in the `QA Passed` stage, the designated release manager will be prepare a new release candidate. The release manager should clone a *fresh* copy of the remote repository when preparing *each* new release, rather than using an existing working copy.
@@ -97,8 +124,8 @@ git merge --no-ff origin/feature/my-new-feature
 git push -u origin release/1.0.1-rc2
 ```
 
-<a name="resolve-merge-conflicts"></a>
-### Resolve merge conflicts
+<a name="resolving-merge-conflicts"></a>
+### Resolving merge conflicts
 
 From time to time when preparing a release candidate, you may encounter merge conflicts. This generally occurs only when you have multiple Pull Requests making modifications to the same file(s). It is at this point that the `Needs Rebase` should be applied.
 
@@ -124,6 +151,43 @@ git rebase origin/release/1.0.1-rc1
 git push -f
 ```
 
+If you encounter any conflicts whilst rebasing, you must resolve these in your feature branch. Git will effectively pause the rebase, allowing you to resolve these conflicts. Once resolved, you then stage your changes continue the rebase. Repeat this process for as many conflicts as you encounter until the rebase is complete.
+
+```
+git add <file_in_conflict>
+git rebase --continue
+```
+
+<a name="rebasing-feature-branches"></a>
+#### Rebasing feature branches
+
+There are two ways to resolve merge conflicts between a feature branch and pending release branches; merging and rebasing.
+
+Using a `merge` to bring in upstream changes often results in an untidy commit history littered with 'merging' commit messages. These merge commit messages will usually be accompanied by 'resolving conflicts' style commits, as well.
+
+Using a `rebase` for the same process gives you the benefit of a clean commit history, as well as a linear history for feature branches, without the clutter of 'merging' commit messages.
+
+A rebase works in the following way:
+
+> 1. Git rolls back your commits and sets them aside
+> 2. Git advances the unmodified tail of your (feature) branch to the head of the master branch
+> 3. Git replays your changes on top of this new tail
+> 4. You resolve, step-by-step, any conflicts as those changes are replayed
+> 5. You have the option to "squash" multiple commits into one commit as things are replayed, simplifying the branch
+
+For the purposes of our workflow, you **must never** merge an upstream branch into a feature branch. **Always** use rebase.
+
+Prior to submitting a Pull Request, you may also be inclined to use an interactive rebase in order to squash any progress commits you've created within your feature branch.
+
+The common workflow when rebasing a feature branch is as follows:
+
+> 1. Create a feature branch
+> 2. When work on branch is complete, rebase the branch, squashing small commits (you may need to do this more often if the branch is long-lived)
+> 3. Merge the rebased branch into master (which should be trivial, because the rebase effectively merged master into branch)
+
+You can read more about `git rebase` [here](https://dotdev.co/git-rebase-for-reasonable-developers-26dc8776dc25).
+
+<a name="preparing-the-final-release"></a>
 ### Preparing the final release
 
 The final release is submitted as a Pull Request from the release branch targetting the `master` branch.
@@ -136,6 +200,7 @@ Upon merging of the release candidate branch into `master`, the merged feature b
 
 > **Note**: You must perform a merge, not a squash and merge, otherwise Pull Requests will not be closed automatically.
 
+<a name="tagging-a-release"></a>
 ### Tagging a release
 
 Once the release candidate is merged into `master`, a new release should be tagged matching the targeted release version.
