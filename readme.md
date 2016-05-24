@@ -21,6 +21,22 @@ git commit -m 'add changes for my new feature'
 git push -u origin feature/my-new-feature
 ```
 
+#### Meaningful commit messages
+
+It is important when making commits to leave meaningful commit messages. Meaningful commit messages makes it easy for somebody not familiar with the code changes to have a good understanding of changes that are being made through the development process. It also makes the release manager's job simpler when it comes time for them to write release notes, as they are provided with a concise overview of everything that was changed, added, or removed, just by looking at the git log between the previous and current releases.
+
+There are seven rules that ought to be followed when writing your commit messages:
+
+> 1. Separate subject from the body with a blank line
+> 2. Limit the subject line to 50 characters
+> 3. Capitalise the subject line
+> 4. Do not end the subject line with a period
+> 5. Use the imperative mood in the subject line
+> 6. Wrap the body at 72 characters
+> 7. Use the body to explain *what* and *why* vs *how*
+
+More information, and a breakdown of the seven rules, on writing meaningful commit messages can be found [here](http://chris.beams.io/posts/git-commit/).
+
 View the project page within GitHub and create a new Pull Request, which targets the `master` branch.
 
 This Pull Requests's code will be reviewed by one of the organisation team members responsible for QA.
