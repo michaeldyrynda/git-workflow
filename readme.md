@@ -124,6 +124,41 @@ git rebase origin/release/1.0.1-rc1
 git push -f
 ```
 
+If you encounter any conflicts whilst rebasing, you must resolve these in your feature branch. Git will effectively pause the rebase, allowing you to resolve these conflicts. Once resolved, you then stage your changes continue the rebase. Repeat this process for as many conflicts as you encounter until the rebase is complete.
+
+```
+git add <file_in_conflict>
+git rebase --continue
+```
+
+#### Rebasing feature branches
+
+There are two ways to resolve merge conflicts between a feature branch and pending release branches; merging and rebasing.
+
+Using a `merge` to bring in upstream changes often results in an untidy commit history littered with 'merging' commit messages. These merge commit messages will usually be accompanied by 'resolving conflicts' style commits, as well.
+
+Using a `rebase` for the same process gives you the benefit of a clean commit history, as well as a linear history for feature branches, without the clutter of 'merging' commit messages.
+
+A rebase works in the following way:
+
+> 1. Git rolls back your commits and sets them aside
+> 2. Git advances the unmodified tail of your (feature) branch to the head of the master branch
+> 3. Git replays your changes on top of this new tail
+> 4. You resolve, step-by-step, any conflicts as those changes are replayed
+> 5. You have the option to "squash" multiple commits into one commit as things are replayed, simplifying the branch
+
+For the purposes of our workflow, you **must never** merge an upstream branch into a feature branch. **Always** use rebase.
+
+Prior to submitting a Pull Request, you may also be inclined to use an interactive rebase in order to squash any progress commits you've created within your feature branch.
+
+The common workflow when rebasing a feature branch is as follows:
+
+> 1. Create a feature branch
+> 2. When work on branch is complete, rebase the branch, squashing small commits (you may need to do this more often if the branch is long-lived)
+> 3. Merge the rebased branch into master (which should be trivial, because the rebase effectively merged master into branch)
+
+You can read more about `git rebase` [here](https://dotdev.co/git-rebase-for-reasonable-developers-26dc8776dc25).
+
 ### Preparing the final release
 
 The final release is submitted as a Pull Request from the release branch targetting the `master` branch.
