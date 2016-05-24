@@ -124,8 +124,8 @@ git merge --no-ff origin/feature/my-new-feature
 git push -u origin release/1.0.1-rc2
 ```
 
-<a name="resolve-merge-conflicts"></a>
-### Resolve merge conflicts
+<a name="resolving-merge-conflicts"></a>
+### Resolving merge conflicts
 
 From time to time when preparing a release candidate, you may encounter merge conflicts. This generally occurs only when you have multiple Pull Requests making modifications to the same file(s). It is at this point that the `Needs Rebase` should be applied.
 
